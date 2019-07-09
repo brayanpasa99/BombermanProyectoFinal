@@ -3,6 +3,8 @@ function Bomberman1(){
 	this.y = 65;
 	this.img = [$("#izquierda_1")[0],$("#derecha_1")[0], $("#arriba_1")[0], $("#abajo_1")[0]];
 	this.sprite = 1;
+	
+	//this.bomba_blanco = new Bomba("#sprite1_b1", "#sprite2_b1", "#sprite3_b1", "#sprite4_b1", "#sprite5_b1", "#sprite6_b1", "#sprite7_b1", "#sprite8_b1", "#sprite9_b1", "#bomba_1", "Blanco");
 
 	//i = fila, j = columna
 	this.i = 0;

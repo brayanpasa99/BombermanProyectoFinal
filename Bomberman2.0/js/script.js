@@ -1,8 +1,8 @@
 
 var jugando;
 var mapaSelector = 0;
-var puntos_1 = 10;
-var puntos_2 = 20;
+var puntos_1 = 0;
+var puntos_2 = 0;
 
 $(document).ready(inicio);
 $(document).keydown(capturaTeclado);
