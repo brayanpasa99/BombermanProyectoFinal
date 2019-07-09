@@ -108,8 +108,8 @@ function run(){
 		mapa.dibujar(contextoBuffer);
 		bomberman_1.dibujar(contextoBuffer);
 		bomberman_2.dibujar(contextoBuffer);
-		bomba_blanco.recibeContexto(contextoBuffer);
-		bomba_negro.recibeContexto(contextoBuffer);
+		bomba_blanco.dibujar(contextoBuffer);
+		bomba_negro.dibujar(contextoBuffer);
 
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
