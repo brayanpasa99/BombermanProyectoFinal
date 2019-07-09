@@ -86,11 +86,11 @@ function capturaTeclado(event){
 		bomberman_2.actualizar('izquierda');
 	//Tecla P
 	if (event.which==80)
-		bomba_blanco.dibujar(bomberman_1.i, bomberman_1.j+1);
+		bomba_blanco.actualizar();
 
 	//Tecla Espacio
 	if (event.which==32)
-		bomba_negro.dibujar(bomberman_2.i+1, bomberman_2.j);
+		bomba_negro.actualizar();
 
 }
 
@@ -108,8 +108,8 @@ function run(){
 		mapa.dibujar(contextoBuffer);
 		bomberman_1.dibujar(contextoBuffer);
 		bomberman_2.dibujar(contextoBuffer);
-		bomba_blanco.dibujar(contextoBuffer);
-		bomba_negro.dibujar(contextoBuffer);
+		bomba_blanco.dibujar(contextoBuffer, bomberman_1.i, bomberman_1.j);
+		bomba_negro.dibujar(contextoBuffer, bomberman_2.i, bomberman_2.j);
 
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
@@ -119,7 +119,7 @@ function run(){
 		contexto.fillText("Victorias de blanco: "+ puntos_1, 150, 760);
 		contexto.fillText("Victorias de negro: "+ puntos_2, 800, 760);
 
-		setTimeout("run()",20);
+		setTimeout("run()", 20);
 
 	}else{
 		contextoBuffer.clearRect(0,0,buffer.width,buffer.height);
