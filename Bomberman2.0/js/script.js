@@ -20,6 +20,8 @@ function inicio(){
 	}
 	bomberman_1 = new Bomberman1();
 	bomberman_2 = new Bomberman2();
+	bomba_negro = new Bomba("#sprite1_b2", "#sprite2_b2", "#sprite3_b2", "#sprite4_b2", "#sprite5_b2", "#sprite6_b2", "#sprite7_b2", "#sprite8_b2", "#sprite9_b2", "#bomba_2", "Negro");
+	bomba_blanco = new Bomba("#sprite1_b1", "#sprite2_b1", "#sprite3_b1", "#sprite4_b1", "#sprite5_b1", "#sprite6_b1", "#sprite7_b1", "#sprite8_b1", "#sprite9_b1", "#bomba_1", "Blanco");
 
 	mapa.llenarMatriz();
 
@@ -60,7 +62,7 @@ function capturaTeclado(event){
 		bomberman_1.actualizar('arriba');
 	//Tecla W
 	if (event.which==87)
-		bomberman_2.actualizar('arriba')
+		bomberman_2.actualizar('arriba');
 
 	//Tecla abajo
 	if(event.which==40)
@@ -74,14 +76,21 @@ function capturaTeclado(event){
 		bomberman_1.actualizar('derecha');
 	//Tecla D
 	if(event.which==68)
-		bomberman_2.actualizar('derecha')
+		bomberman_2.actualizar('derecha');
 
 	//Tecla izquieda
 	if(event.which==37)
 		bomberman_1.actualizar('izquierda');
 	//Tecla A
 	if (event.which==65)
-		bomberman_2.actualizar('izquierda')
+		bomberman_2.actualizar('izquierda');
+	//Tecla P
+	if (event.which==80)
+		bomba_blanco.dibujar(bomberman_1.i, bomberman_1.j+1);
+
+	//Tecla Espacio
+	if (event.which==32)
+		bomba_negro.dibujar(bomberman_2.i+1, bomberman_2.j);
 
 }
 
@@ -99,6 +108,8 @@ function run(){
 		mapa.dibujar(contextoBuffer);
 		bomberman_1.dibujar(contextoBuffer);
 		bomberman_2.dibujar(contextoBuffer);
+		bomba_blanco.recibeContexto(contextoBuffer);
+		bomba_negro.recibeContexto(contextoBuffer);
 
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
