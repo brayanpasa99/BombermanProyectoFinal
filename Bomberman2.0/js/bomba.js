@@ -5,7 +5,7 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 	this.explotar = false;
 	this.dueño = $(bomberman)[0];
 	this.n = 0;
-	
+
 	this.contador = 10;
 
 	this.matriz = [
@@ -19,7 +19,7 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 		[0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	];
-	
+
 	this.setPos = function(posi, posj){
 		this.i = posi;
 		this.j = posj;
@@ -29,6 +29,14 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 		//this.i = posi;
 		//this.j = posj;
 		if(dibuja == true){
+			if(this.n==0){
+			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + this.i*64));
+			ctx.save();
+			ctx.restore();
+
+		}
+
+	 else{
 			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + this.i*64));
 			ctx.drawImage(this.sprites[this.n], (250 + (this.j+1)*64),(72 + this.i*64));
 			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + (this.i+1)*64));
@@ -36,28 +44,36 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + (this.i-1)*64));
 			ctx.save();
 			ctx.restore();
+		   }
+	}
+
+		if(this.n ==9){
+			dibuja=false;
 		}
+
 		if(this.explotar){
+
 			this.n = this.n + 1;
 			this.n = this.n % 10;
 		}
-			
-		
+
+
 	}
+
 
 
 	function estallido(){
 		console.log("ENTRE A ESTALLIDO");
 		dibujar = false;
-		
 	}
 
 	this.actualizar = function(){
+		this.n=0;
 		dibuja = true;
 		estallido();
 		this.explotar = true;
 		//setTimeout(this.actualizar, 30);
-		
-		
+
+
 	}
 }

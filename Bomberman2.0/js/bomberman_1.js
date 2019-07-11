@@ -56,6 +56,31 @@ function Bomberman1(){
 		ctx.restore();
 	}
 
+	this.puntosNegro = function(posi, posj){
+		this.w=posi;
+		this.z=posj;
+
+
+		if(this.w==this.i && (this.z+1)==this.j){
+
+ 			return true;
+		}
+		else if (this.w==this.i && (this.z-1)==this.j){
+ 			return true;
+		}
+		else if ((this.w+1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else if ((this.w-1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else{
+			return false;
+		}
+
+
+	}
+
 	this.actualizar = function(accion){
 		if(accion=="arriba" && this.y > 75 && this.matriz[this.i-1][this.j]!=1 && this.posicion_bomberman2[this.i-1][this.j]==0){
 
