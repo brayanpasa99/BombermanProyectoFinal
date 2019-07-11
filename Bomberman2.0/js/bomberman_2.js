@@ -1,6 +1,7 @@
 function Bomberman2(){
 	this.x = 1155;
 	this.y = 585;
+	this.bombaY=0;
 	this.img = [$("#izquierda_2")[0],$("#derecha_2")[0], $("#arriba_2")[0], $("#abajo_2")[0]];
 	this.sprite = 0;
 
@@ -56,6 +57,32 @@ function Bomberman2(){
 		ctx.fillStyle = "#ffffff";
 		ctx.font = "12px sans-serif";
 		ctx.restore();
+
+	}
+
+  this.puntosBlanco = function(posi, posj){
+		this.w=posi;
+		this.z=posj;
+
+
+		if(this.w==this.i && (this.z+1)==this.j){
+
+ 			return true;
+		}
+		else if (this.w==this.i && (this.z-1)==this.j){
+ 			return true;
+		}
+		else if ((this.w+1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else if ((this.w-1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else{
+			return false;
+		}
+
+
 	}
 
 	this.actualizar = function(accion){

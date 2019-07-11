@@ -67,8 +67,6 @@ function Mapa(escenario, bloque){
 			}
 		}
 
-
-
 	}
 
 }

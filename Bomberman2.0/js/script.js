@@ -1,8 +1,8 @@
 
 var jugando;
 var mapaSelector = 0;
-var puntos_1 = 10;
-var puntos_2 = 20;
+var puntos_1 = 0;
+var puntos_2 = 0;
 
 $(document).ready(inicio);
 $(document).keydown(capturaTeclado);
@@ -20,6 +20,9 @@ function inicio(){
 	}
 	bomberman_1 = new Bomberman1();
 	bomberman_2 = new Bomberman2();
+	bomba_blanco = new Bomba("#sprite1_b1", "#sprite2_b1", "#sprite3_b1", "#sprite4_b1", "#sprite5_b1", "#sprite6_b1", "#sprite7_b1", "#sprite8_b1", "#sprite9_b1", "#bomba_1", "Blanco");
+	bomba_negro = new Bomba("#sprite1_b2", "#sprite2_b2", "#sprite3_b2", "#sprite4_b2", "#sprite5_b2", "#sprite6_b2", "#sprite7_b2", "#sprite8_b2", "#sprite9_b2", "#bomba_2", "Negro");
+
 
 	mapa.llenarMatriz();
 
@@ -60,7 +63,7 @@ function capturaTeclado(event){
 		bomberman_1.actualizar('arriba');
 	//Tecla W
 	if (event.which==87)
-		bomberman_2.actualizar('arriba')
+		bomberman_2.actualizar('arriba');
 
 	//Tecla abajo
 	if(event.which==40)
@@ -74,15 +77,23 @@ function capturaTeclado(event){
 		bomberman_1.actualizar('derecha');
 	//Tecla D
 	if(event.which==68)
-		bomberman_2.actualizar('derecha')
+		bomberman_2.actualizar('derecha');
 
 	//Tecla izquieda
 	if(event.which==37)
 		bomberman_1.actualizar('izquierda');
 	//Tecla A
 	if (event.which==65)
-		bomberman_2.actualizar('izquierda')
+		bomberman_2.actualizar('izquierda');
+	//Tecla P
+	if (event.which==80)
+	  bomba_blanco.setPos(bomberman_1.i, bomberman_1.j);
+		bomba_blanco.actualizar();
 
+	//Tecla Espacio
+	if (event.which==32)
+    bomba_negro.setPos(bomberman_2.i, bomberman_2.j);
+		bomba_negro.actualizar();
 }
 
 function run(){
@@ -99,6 +110,20 @@ function run(){
 		mapa.dibujar(contextoBuffer);
 		bomberman_1.dibujar(contextoBuffer);
 		bomberman_2.dibujar(contextoBuffer);
+		//console.log(bomberman_1.i + bomberman_1.j);
+		bomba_blanco.dibujar(contextoBuffer, bomberman_1.i, bomberman_1.j);
+
+		bomba_negro.dibujar(contextoBuffer, bomberman_2.i, bomberman_2.j);
+
+		if(bomberman_1.puntosNegro(bomba_negro.i,bomba_negro.j)){
+				puntos_2=puntos_2+1;
+				inicio();
+			}
+		if(bomberman_2.puntosBlanco(bomba_blanco.i,bomba_blanco.j)){
+				puntos_1=puntos_1+1;
+				inicio();
+			}
+
 
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
 		contexto.drawImage(buffer, 0, 0);
@@ -108,7 +133,7 @@ function run(){
 		contexto.fillText("Victorias de blanco: "+ puntos_1, 150, 760);
 		contexto.fillText("Victorias de negro: "+ puntos_2, 800, 760);
 
-		setTimeout("run()",20);
+		setTimeout("run()", 30);
 
 	}else{
 		contextoBuffer.clearRect(0,0,buffer.width,buffer.height);
