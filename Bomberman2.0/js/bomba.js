@@ -1,12 +1,12 @@
-function Bomberman2(){
-	this.x = 1155;
-	this.y = 585;
-	this.img = [$("#izquierda_2")[0],$("#derecha_2")[0], $("#arriba_2")[0], $("#abajo_2")[0]];
-	this.sprite = 0;
-	this.vida = 100;
-	this.puntos = 0;
-	this.j = 14;
-	this.i = 8;
+function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sprite8, sprite9, imagenbomba, bomberman){
+	this.sprites = [$(imagenbomba)[0], $(sprite1)[0], $(sprite2)[0], $(sprite3)[0], $(sprite4)[0], $(sprite5)[0], $(sprite6)[0], $(sprite7)[0], $(sprite8)[0], $(sprite9)[0]];
+	this.sprite1 = $(sprite1)[0];
+	var dibuja = false;
+	this.explotar = false;
+	this.dueño = $(bomberman)[0];
+	this.n = 0;
+
+	this.contador = 10;
 
 	this.matriz = [
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -20,55 +20,60 @@ function Bomberman2(){
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	];
 
-	this.dibujar = function(ctx){
-		var img = this.img[this.sprite];
-		var x = this.x;
-		var y = this.y;
-		ctx.drawImage(img, x, y);
-		ctx.save();
-		ctx.fillStyle = "#ffffff";
-		ctx.font = "12px sans-serif";
-		ctx.fillText("puntos: "+ this.puntos, x, y + 10);
-		ctx.fillText("vida: "+ this.vida, x, y);
-		ctx.restore();
-	}
-	
-	this.actualizar = function(accion){
-		if(accion=="arriba" && this.y > 75 && this.matriz[this.i-1][this.j]!=1){
-			this.i -= 1;
-			this.y -= 65;
-
-			this.sprite = 2;
-			this.vida = this.i;
-			this.puntos = this.j;
-		}
-
-		if(accion=="abajo"  && this.y < 560 && this.matriz[this.i+1][this.j]==0){
-			this.i += 1;
-			this.y += 65;
-
-			this.sprite = 3;
-			this.vida = this.i;
-			this.puntos = this.j;
-		}
-
-		if(accion=="izquierda" && this.x >= 245 && this.matriz[this.i][this.j-1]==0){
-			this.j -= 1;
-			this.x -= 65;
-
-			this.sprite = 0;
-			this.vida = this.i;
-			this.puntos = this.j;
-		}
-
-		if(accion=="derecha" && this.x <= 1130 && this.matriz[this.i][this.j+1]==0){
-			this.j += 1;
-			this.x += 65;
-
-			this.sprite = 1;
-			this.vida = this.i;
-			this.puntos = this.j;
-		}
+	this.setPos = function(posi, posj){
+		this.i = posi;
+		this.j = posj;
 	}
 
+	this.dibujar = function(ctx, posi, posj){
+		//this.i = posi;
+		//this.j = posj;
+		if(dibuja == true){
+			if(this.n==0){
+			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + this.i*64));
+			ctx.save();
+			ctx.restore();
+
+		}
+
+	 else{
+			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + this.i*64));
+			ctx.drawImage(this.sprites[this.n], (250 + (this.j+1)*64),(72 + this.i*64));
+			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + (this.i+1)*64));
+			ctx.drawImage(this.sprites[this.n], (250 + (this.j-1)*64),(72 + this.i*64));
+			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + (this.i-1)*64));
+			ctx.save();
+			ctx.restore();
+		   }
+	}
+
+		if(this.n ==9){
+			dibuja=false;
+		}
+
+		if(this.explotar){
+
+			this.n = this.n + 1;
+			this.n = this.n % 10;
+		}
+
+
+	}
+
+
+
+	function estallido(){
+		console.log("ENTRE A ESTALLIDO");
+		dibujar = false;
+	}
+
+	this.actualizar = function(){
+		this.n=0;
+		dibuja = true;
+		estallido();
+		this.explotar = true;
+		//setTimeout(this.actualizar, 30);
+
+
+	}
 }

@@ -1,12 +1,16 @@
 function Bomberman2(){
 	this.x = 1155;
 	this.y = 585;
+	this.bombaY=0;
 	this.img = [$("#izquierda_2")[0],$("#derecha_2")[0], $("#arriba_2")[0], $("#abajo_2")[0]];
 	this.sprite = 0;
-	this.vida = 100;
-	this.puntos = 0;
-	this.j = 14;
+
+	//i: fila, j: columna
 	this.i = 8;
+	this.j = 14;
+
+	this.i_bomberman1 = 0;
+	this.j_bomberman1 = 0;
 
 	this.matriz = [
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -20,6 +24,30 @@ function Bomberman2(){
 		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 	];
 
+	this.posicion_bomberman1 = [
+		[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+	];
+
+	this.posicion_bomberman2 = [
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+		[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+	];
+
 	this.dibujar = function(ctx){
 		var img = this.img[this.sprite];
 		var x = this.x;
@@ -28,42 +56,86 @@ function Bomberman2(){
 		ctx.save();
 		ctx.fillStyle = "#ffffff";
 		ctx.font = "12px sans-serif";
-		ctx.fillText("puntos: "+ this.puntos, x, y + 10);
-		ctx.fillText("vida: "+ this.vida, x, y);
 		ctx.restore();
+
 	}
-	
+
+  this.puntosBlanco = function(posi, posj){
+		this.w=posi;
+		this.z=posj;
+
+
+		if(this.w==this.i && (this.z+1)==this.j){
+
+ 			return true;
+		}
+		else if (this.w==this.i && (this.z-1)==this.j){
+ 			return true;
+		}
+		else if ((this.w+1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else if ((this.w-1)==this.i && this.z==this.j){
+ 			return true;
+		}
+		else{
+			return false;
+		}
+
+
+	}
+
 	this.actualizar = function(accion){
-		if(accion=="arriba" && this.y > 75 && this.matriz[this.i-1][this.j]!=1){
+		if(accion=="arriba" && this.y > 75 && this.matriz[this.i-1][this.j]!=1 && this.posicion_bomberman1[this.i-1][this.j]==0){
+
+			this.posicion_bomberman2[this.i][this.j]=0;
+
 			this.i -= 1;
 			this.y -= 65;
+
+			this.posicion_bomberman2[this.i][this.j] = 1;
 
 			this.sprite = 2;
 			this.vida = this.i;
 			this.puntos = this.j;
 		}
 
-		if(accion=="abajo"  && this.y < 560 && this.matriz[this.i+1][this.j]==0){
+		if(accion=="abajo"  && this.y < 560 && this.matriz[this.i+1][this.j]==0 && this.posicion_bomberman1[this.i+1][this.j]==0){
+
+			this.posicion_bomberman2[this.i][this.j]=0;
+
 			this.i += 1;
 			this.y += 65;
+
+			this.posicion_bomberman2[this.i][this.j] = 1;
 
 			this.sprite = 3;
 			this.vida = this.i;
 			this.puntos = this.j;
 		}
 
-		if(accion=="izquierda" && this.x >= 245 && this.matriz[this.i][this.j-1]==0){
+		if(accion=="izquierda" && this.x >= 245 && this.matriz[this.i][this.j-1]==0 && this.posicion_bomberman1[this.i][this.j-1]==0){
+
+			this.posicion_bomberman2[this.i][this.j]=0;
+
 			this.j -= 1;
 			this.x -= 65;
+
+			this.posicion_bomberman2[this.i][this.j] = 1;
 
 			this.sprite = 0;
 			this.vida = this.i;
 			this.puntos = this.j;
 		}
 
-		if(accion=="derecha" && this.x <= 1130 && this.matriz[this.i][this.j+1]==0){
+		if(accion=="derecha" && this.x <= 1130 && this.matriz[this.i][this.j+1]==0 && this.posicion_bomberman1[this.i][this.j+1]==0){
+
+			this.posicion_bomberman2[this.i][this.j]=0;
+
 			this.j += 1;
 			this.x += 65;
+
+			this.posicion_bomberman2[this.i][this.j] = 1;
 
 			this.sprite = 1;
 			this.vida = this.i;
