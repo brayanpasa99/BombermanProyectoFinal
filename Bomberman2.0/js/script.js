@@ -3,6 +3,7 @@ var jugando;
 var mapaSelector = 0;
 var puntos_1 = 0;
 var puntos_2 = 0;
+var ganador=-1;
 
 $(document).ready(inicio);
 $(document).keydown(capturaTeclado);
@@ -110,9 +111,7 @@ function run(){
 		mapa.dibujar(contextoBuffer);
 		bomberman_1.dibujar(contextoBuffer);
 		bomberman_2.dibujar(contextoBuffer);
-		//console.log(bomberman_1.i + bomberman_1.j);
 		bomba_blanco.dibujar(contextoBuffer, bomberman_1.i, bomberman_1.j);
-
 		bomba_negro.dibujar(contextoBuffer, bomberman_2.i, bomberman_2.j);
 
 		if(bomberman_1.puntosNegro(bomba_negro.i,bomba_negro.j)){
@@ -123,6 +122,16 @@ function run(){
 				puntos_1=puntos_1+1;
 				inicio();
 			}
+
+		if(puntos_1==4){
+			jugando=false;
+			ganador=0;
+		}
+		if(puntos_2==4){
+			jugando=false;
+			ganador=1;
+		}
+
 
 
 		contexto.clearRect(0,0,miCanvas.width,miCanvas.height);
@@ -136,6 +145,12 @@ function run(){
 		setTimeout("run()", 30);
 
 	}else{
+    if(ganador==0){
+			contexto.fillText("Victoria del jugador blanco ", 590,400);
+		}
+		if(ganador==1){
+			contexto.fillText("Victoria del jugador negro ", 590, 400);
+		}
 		contextoBuffer.clearRect(0,0,buffer.width,buffer.height);
 		contextoBuffer.fillStyle = "#ffffff";
 		gallina.sprite = 3;

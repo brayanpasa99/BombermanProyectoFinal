@@ -26,9 +26,8 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 	}
 
 	this.dibujar = function(ctx, posi, posj){
-		//this.i = posi;
-		//this.j = posj;
-		if(dibuja == true){
+
+		if(dibuja == true && this.i != null&& this.j != null){
 			if(this.n==0){
 			ctx.drawImage(this.sprites[this.n], (250 + this.j*64),(72 + this.i*64));
 			ctx.save();
@@ -48,6 +47,8 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 	}
 
 		if(this.n ==9){
+			this.i = null;
+			this.j = null;
 			dibuja=false;
 		}
 
@@ -63,7 +64,6 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 
 
 	function estallido(){
-		console.log("ENTRE A ESTALLIDO");
 		dibujar = false;
 	}
 
@@ -72,7 +72,7 @@ function Bomba(sprite1, sprite2, sprite3, sprite4, sprite5, sprite6, sprite7, sp
 		dibuja = true;
 		estallido();
 		this.explotar = true;
-		//setTimeout(this.actualizar, 30);
+
 
 
 	}

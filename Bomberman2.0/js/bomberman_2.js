@@ -100,7 +100,7 @@ function Bomberman2(){
 			this.puntos = this.j;
 		}
 
-		if(accion=="abajo"  && this.y < 560 && this.matriz[this.i+1][this.j]==0 && this.posicion_bomberman1[this.i+1][this.j]==0){
+		else if(accion=="abajo"  && this.y < 560 && this.matriz[this.i+1][this.j]==0 && this.posicion_bomberman1[this.i+1][this.j]==0){
 
 			this.posicion_bomberman2[this.i][this.j]=0;
 
@@ -114,7 +114,7 @@ function Bomberman2(){
 			this.puntos = this.j;
 		}
 
-		if(accion=="izquierda" && this.x >= 245 && this.matriz[this.i][this.j-1]==0 && this.posicion_bomberman1[this.i][this.j-1]==0){
+		else if(accion=="izquierda" && this.x >= 245 && this.matriz[this.i][this.j-1]==0 && this.posicion_bomberman1[this.i][this.j-1]==0){
 
 			this.posicion_bomberman2[this.i][this.j]=0;
 
@@ -128,7 +128,7 @@ function Bomberman2(){
 			this.puntos = this.j;
 		}
 
-		if(accion=="derecha" && this.x <= 1130 && this.matriz[this.i][this.j+1]==0 && this.posicion_bomberman1[this.i][this.j+1]==0){
+	 else	if(accion=="derecha" && this.x <= 1130 && this.matriz[this.i][this.j+1]==0 && this.posicion_bomberman1[this.i][this.j+1]==0){
 
 			this.posicion_bomberman2[this.i][this.j]=0;
 
